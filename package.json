@@ -1,0 +1,44 @@
+{
+  "name": "Quiva",
+  "version": "1.0.1",
+  "private": true,
+  "scripts": {
+    "start": "react-native start",
+    "test": "jest",
+    "lint": "eslint ."
+  },
+  "dependencies": {
+    "@react-native-community/toolbar-android": "0.1.0-rc.2",
+    "react": "16.8.6",
+    "react-native": "^0.62.2",
+    "react-native-gesture-handler": "^1.6.1",
+    "react-native-paper": "^2.16.0",
+    "react-native-responsive-screen": "^1.4.1",
+    "react-native-screens": "^2.5.0",
+    "react-native-segmented-control-tab": "^3.4.0",
+    "react-native-share": "^3.2.0",
+    "react-native-vector-icons": "^6.4.2",
+    "react-navigation": "^4.3.7",
+    "react-navigation-material-bottom-tabs": "1.0.0",
+    "react-navigation-stack": "^1.10.3"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.9.0",
+    "@babel/runtime": "^7.9.2",
+    "@react-native-community/eslint-config": "^0.0.5",
+    "babel-jest": "^24.9.0",
+    "eslint": "^6.8.0",
+    "jest": "^24.9.0",
+    "metro": "^0.59.0",
+    "metro-react-native-babel-preset": "^0.56.4",
+    "react-test-renderer": "16.8.6"
+  },
+  "jest": {
+    "preset": "react-native"
+  },
+  "npm": {
+    "assets": [
+      "./assets/fonts/"
+    ]
+  }
+}
