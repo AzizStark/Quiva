@@ -18,16 +18,19 @@ export class Title extends PureComponent {
             modalContent: '',
             inputdata: '',
             tarea: 'example',
-            prefix: '',
-            icon: undefined
+            prefix: "",
+            icon: undefined,
         }
+        this.pvarb = ""
+        this.initialinput = ""
     }
 
     remap = () => {
-        let strings = this.state.inputdata || 'example'
-        let suffix = [...this.state.prefix].reverse().join``
-        let newtext = this.state.prefix + strings + suffix
-        return newtext
+        var strings = this.initialinput || 'example'
+        let suffix = [...this.pvarb].reverse().join``
+        let newtext = this.pvarb + strings + suffix
+        this._MyComponent.setNativeProps({text: newtext}); 
+        this.copydata = newtext
     }
 
     setModalVisible(visible) {
@@ -37,7 +40,7 @@ export class Title extends PureComponent {
     }
 
     copyText = () => {
-          Clipboard.setString(this.remap());
+          Clipboard.setString(this.copydata);
           Alert.alert("Text copied to clipboard");
     }
 
@@ -79,6 +82,7 @@ export class Title extends PureComponent {
         Icon.getImageSource('more-vertical', 24, '#ffffff').then((source) => {
           this.setState({ icon: source })
         })
+        this.remap()
       }
 
      
@@ -174,21 +178,19 @@ export class Title extends PureComponent {
                     <TextInput
                         placeholder='Type Something'
                         clearButtonMode="always"
-                        onChangeText={(input) => { this.setState({ inputdata: input });}}
+                        onChangeText={(input) => {this.initialinput = input; this.remap() }}
                         style={styles.Typeitem}
                         multiline={true}
-                        value={this.state.inputdata}
+                        ref={component=> this.initinput = component}
                     />
                     <TouchableOpacity>   
-                        <Icon2 name="ios-backspace" onPress={(inputdata) => { this.setState({ inputdata: "", tarea: "example" }); setTimeout(this.remap, 1) }} style={{ paddingRight: 10, }} size={30} color="#7966FE" />
+                        <Icon2 name="ios-backspace" onPress={() => { this.initialinput = ""; this.remap(); this.initinput.setNativeProps({text: ""})}} style={{ paddingRight: 10, }} size={30} color="#7966FE" />
                     </TouchableOpacity>  
                 </View>
  
               
                 <TouchableOpacity style={[styles.Listviu, styles.flatview]}  onPress={() => this.setModalVisible(true)}>
-                    <Text numberOfLines={1} ellipsizeMode="head" style={styles.item}>
-                        {this.remap()}
-                    </Text>
+                    <TextInput numberOfLines={1} ellipsizeMode="head" style={styles.item}  ref={component=> this._MyComponent=component} editable = {false} > </TextInput>
                     <TouchableOpacity onPress={this.copyText}>
                         <Icon name="copy" size={28} color="#7966FE" />
                     </TouchableOpacity>
@@ -205,9 +207,10 @@ export class Title extends PureComponent {
                         onChangeText={(inputdata) => { this.setState({ prefix: inputdata }) }}
                         style={styles.Typeitem} 
                         value={this.state.prefix}
+                        ref={component=> this._MyComponent2 = component}
                     />
                     <TouchableOpacity>
-                        <Icon2 name="ios-backspace" onPress={(inputdata) => { this.setState({ tarea: "example", prefix: "" }); setTimeout(this.remap, 1) }} style={{ paddingRight: 10, }} size={30} color="#7966FE" />
+                        <Icon2 name="ios-backspace" onPress={() => { this.pvarb = ""; this._MyComponent2.setNativeProps({text: ""}); this.remap(); }} style={{ paddingRight: 10, }} size={30} color="#7966FE" />
                     </TouchableOpacity>
                 </View>
 
@@ -220,7 +223,7 @@ export class Title extends PureComponent {
                         contentContainerStyle={{ justifyContent: 'center' }}
                         renderItem={({ item, index }) => (
                             <TouchableOpacity style={(this.state.flist1 === index && customStyleIndex === 0 && this.state.selected1 === this.state.category1) ? styles.flatview2TIC : ((this.state.flist2 === index && customStyleIndex === 1 && this.state.selected2 === this.state.category2) ? styles.flatview2TIC : ((this.state.flist3 === index && customStyleIndex === 2 && this.state.selected3 === this.state.category3) ? styles.flatview2TIC : styles.flatview2))}
-                            onPress={() => this.setState({ prefix: this.state.prefix + item })}  >            
+                            onPress={() => {this.pvarb = this.pvarb + item; this._MyComponent2.setNativeProps({text: this.pvarb}); this.remap();   }}>            
                                 <Text allowFontScaling = {false} style={styles.textstyle2}> {item} </Text>
                                 <Text allowFontScaling = {false} style={{ margin: 0, fontSize: 12, paddingTop: 1, marginLeft: 2, color: '#244E53' }}>{index}</Text>
                             </TouchableOpacity>
