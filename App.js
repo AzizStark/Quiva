@@ -323,7 +323,7 @@ export class Home extends PureComponent {
 
         <View style={styles.inputText}>
           <TextInput
-            placeholder='Type Something'
+            placeholder='Type Something' 
             clearButtonMode="always"
             onChangeText={(inputdata) => { this.setState( {inputdata: inputdata} ) }}
             style={styles.Typeitem}
