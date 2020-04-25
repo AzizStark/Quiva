@@ -225,15 +225,7 @@ export class Decor extends PureComponent {
               <Icon name="arrow-left" style={{ marginBottom: 10 }} size={28} color="#7966FE" />
             </TouchableOpacity>
             <ScrollView>
-              <TextInput  ellipsizeMode = "head" style={{ fontSize: 20, width: wp('92%'), height: hp('78%'), textAlignVertical: "top",}}  onChangeText = {(modalContent) => this.setState({modalContent})} multiline={true}>{modalContent}</TextInput>
-              <TextInput
-                placeholder='Type Something'
-                clearButtonMode="always"
-                onChangeText={(inputdata2) => { this.setState({ inputdata2, tarea: inputdata2 })}}
-                multiline={true}
-                style={styles.Typeitem}
-                value={this.state.tarea}
-              /> 
+              <TextInput  ellipsizeMode = "head" style={styles.modelinputtext}  onChangeText = {(modalContent) => this.setState({modalContent})} multiline={true}>{modalContent}</TextInput>
             </ScrollView>
             
             <View style={{alignItems: 'center', flexDirection: 'row', justifyContent: 'space-between'}}>
@@ -294,8 +286,8 @@ export class Decor extends PureComponent {
           </TouchableOpacity>
         </View>
         
-        <TouchableHighlight underlayColor={'#ecf0f1'} style={styles.flatview} onPress={() => this.setModalVisible(true)}>
-          <View style={styles.Listviu}>
+ 
+         <TouchableOpacity style={[styles.Listviu, styles.flatview]} onPress={() => this.setModalVisible(true)}>
             <Text numberOfLines={1} ellipsizeMode="head" style={styles.item}>
               {this.remap2()}
             </Text> 
@@ -305,8 +297,7 @@ export class Decor extends PureComponent {
             <TouchableOpacity onPress={() => this.shareit(this.remap2())} style={{paddingLeft: 4}}>
               <Icon name="share-2" size={28} color="#7966FE" />
             </TouchableOpacity>
-          </View>
-        </TouchableHighlight>
+        </TouchableOpacity>
 
 
         {/*############################################ Decorati tool ############################################## */}

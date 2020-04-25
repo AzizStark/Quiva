@@ -270,7 +270,7 @@ export class Home extends PureComponent {
 
                 onChangeText = {(mcontent) => { this.writefancy(mcontent) }} 
                 
-                style={{ fontSize: 20, width: wp('92%'), height: hp('78%'), textAlignVertical: "top",}} 
+                style={styles.modelinputtext} 
                 multiline={true}>
               </TextInput>
 
@@ -333,7 +333,7 @@ export class Home extends PureComponent {
           <TouchableOpacity>
             <Icon2 name="ios-backspace"  onPress={() => { this.setState({ inputdata: ""}) }} style={{ paddingRight: 10, }} size={30} color="#7966FE" />
           </TouchableOpacity>  
-        </View>
+        </View> 
         
        <FlatList
           style={{ marginTop: 10 }} 

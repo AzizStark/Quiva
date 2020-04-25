@@ -127,7 +127,7 @@ export class Title extends PureComponent {
                             <Icon name="arrow-left" style={{ marginBottom: 10 }} size={28} color="#7966FE" />
                         </TouchableOpacity>
                         <ScrollView>
-                            <TextInput  ellipsizeMode = "head" style={{ fontSize: 20, width: wp('92%'), height: hp('78%'), textAlignVertical: "top",}}  onChangeText = {(modalContent) => this.setState({modalContent})} multiline={true}>{this.state.modalContent}</TextInput>
+                            <TextInput  ellipsizeMode = "head" style={styles.modelinputtext}  onChangeText = {(modalContent) => this.setState({modalContent})} multiline={true}>{this.state.modalContent}</TextInput>
                         </ScrollView>
 
                         <View style={{alignItems: 'center', flexDirection: 'row', justifyContent: 'space-between'}}>
@@ -185,19 +185,17 @@ export class Title extends PureComponent {
                 </View>
  
               
-                <TouchableHighlight underlayColor={'#ecf0f1'} style={styles.flatview} onPress={() => this.setModalVisible(true)}>
-                    <View style={styles.Listviu}>
-                        <Text numberOfLines={1} ellipsizeMode="head" style={styles.item}>
-                            {this.remap()}
-                        </Text>
-                        <TouchableOpacity onPress={this.copyText}>
-                            <Icon name="copy" size={28} color="#7966FE" />
-                        </TouchableOpacity>
-                        <TouchableOpacity onPress={() => this.shareit(this.remap())} style={{paddingLeft: 4}}>
-                            <Icon name="share-2" size={28} color="#7966FE" />
-                        </TouchableOpacity>
-                    </View>
-                </TouchableHighlight>
+                <TouchableOpacity style={[styles.Listviu, styles.flatview]}  onPress={() => this.setModalVisible(true)}>
+                    <Text numberOfLines={1} ellipsizeMode="head" style={styles.item}>
+                        {this.remap()}
+                    </Text>
+                    <TouchableOpacity onPress={this.copyText}>
+                        <Icon name="copy" size={28} color="#7966FE" />
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={() => this.shareit(this.remap())} style={{paddingLeft: 4}}>
+                        <Icon name="share-2" size={28} color="#7966FE" />
+                    </TouchableOpacity>
+                </TouchableOpacity>
 
 
                 <View style={[styles.inputText,{ marginTop: 0, marginBottom: 0}]}>
