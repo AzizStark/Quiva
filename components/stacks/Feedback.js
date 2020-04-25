@@ -50,26 +50,30 @@ export class Feedback extends PureComponent {
       <View style={cstyles.container}>
         
         <Text
-          style={{padding: 8,fontFamily: 'Quicksand-Medium', fontSize: 16, color: '#7966FE', paddingLeft: 6, width: wp('100'), alignSelf: 'center', textAlign: 'center' }}
+          style={{padding: 8,fontFamily: 'Quicksand-Medium', fontSize: 16, color: '#7966FE', paddingLeft: 6, alignSelf: 'center', textAlign: 'center' }}
           > Send feedback, suggestions or report an issue </Text>
    
-        <TextInput
-          style={[styles.Typeitem, { backgroundColor: '#fff', borderRadius: 6, width: wp('94')}]}
-          placeholder="Enter title"
-          onChangeText={(text) => this.setState({title: text})}
-        />
-
-        <TextInput
-          style={[styles.Typeitem, {width: wp('94'), backgroundColor: '#fff', borderRadius: 6, height: hp('30') ,paddingTop: 16, textAlignVertical: 'top'}]}
-          placeholder="Enter message"
-          multiline = {true}
-          onChangeText={(text) => this.setState({body: text})}
-        />
+        <View style = {styles.inputText}>
+          <TextInput
+             style={[styles.Typeitem, {backgroundColor: '#fff', borderRadius: 6, height:  50 ,paddingTop: 16, textAlignVertical: 'top'}]}
+            placeholder="Enter title"
+            onChangeText={(text) => this.setState({title: text})}
+          />
+        </View>
+        
+        <View style = {[styles.inputText, {maxHeight: 250}]}>
+          <TextInput
+            style={[styles.Typeitem, {minHeight: 100, backgroundColor: '#fff', borderRadius: 6 ,paddingTop: 16, textAlignVertical: 'top'}]}
+            placeholder="Enter message"
+            multiline = {true}
+            onChangeText={(text) => this.setState({body: text})}
+          />
+        </View>
 
         <TouchableNativeFeedback
         background={TouchableNativeFeedback.SelectableBackground()} onPress={this.sendmail}>
-            <View style={{marginTop: 8, height: 50, display: 'flex', flexDirection: 'row', width: wp('94'), backgroundColor: '#7966FE', borderRadius: 6 }}>
-                <Text style={{height: 50, textAlignVertical: 'center' ,width: wp('94'),  fontSize: 18, textAlign: 'center', color: '#fff'}}>Send</Text>
+            <View style={[styles.inputText, {backgroundColor: '#7966FE', height: 50}]}>
+                <Text style={[styles.Typeitem, {color: '#fff', textAlign: 'center'}]}>Send  </Text>
             </View>    
        </TouchableNativeFeedback>
 

@@ -59,14 +59,21 @@ export default StyleSheet.create({
     },
   
     Typeitem: {
+      flex: 1,
       fontSize: 18,
       marginVertical: 2.5,
-      width: wp('86%'),
       paddingLeft: 10
     },
   
     // ############## Flatlist
   
+    modelinputtext: {
+      flex: 1,
+      fontSize: 20,
+      height: hp('78%'),
+      textAlignVertical: "top"
+    },
+
     flatview: {
       marginTop: 0,
       margin: 6,
@@ -74,11 +81,9 @@ export default StyleSheet.create({
       height: 55,
       backgroundColor: '#FFFFFF',
       borderRadius: 6,
-  
     },
   
     Listviu: {
-      flex: 1,
       flexDirection: "row",
       justifyContent: "space-around",
       alignItems: "center",
@@ -86,9 +91,9 @@ export default StyleSheet.create({
     },
   
     item: {
+      flex: 1,
       fontSize: 20,
-      width: wp('80%'),
-      paddingRight: 5,
+      paddingRight: 2,
       paddingLeft: 10,
       color: '#244E53'
     },
