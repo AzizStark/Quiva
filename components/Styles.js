@@ -142,23 +142,11 @@ export default StyleSheet.create({
       flex: 1,
       textAlignVertical: 'center',
       height: 34,
-      fontSize: 20,
-      paddingTop: 8,
+      fontSize: 23,
+      paddingTop: 6,
       color: '#244E53'
     },
   
-    //########### butt2
-  
-    /* buttGradient2: {
-       width: wp('30%'),
-       height: 50,
-       borderRadius: 5,
-       borderWidth: 2,
-       borderColor: '#557788',
-       margin: 5,
-       justifyContent: 'center',
-       alignItems: 'center',
-     }, */
        
     butt2: {
       fontSize: 12,
