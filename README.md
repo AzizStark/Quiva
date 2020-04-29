@@ -3,5 +3,5 @@
 <br/>
 <br/>
 
-<center>
-<a href='https://galaxystore.samsung.com/detail/com.quiva'><img alt='Available on galaxy store' src='https://res.cloudinary.com/azizcloud/image/upload/v1588188023/jvuirtrvzpspnxa5l2wc.png'/></a> </center>
+<p align="center">
+<a href='https://galaxystore.samsung.com/detail/com.quiva'><img alt='Available on galaxy store' src='https://res.cloudinary.com/azizcloud/image/upload/v1588188023/jvuirtrvzpspnxa5l2wc.png'/></a> </p>
