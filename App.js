@@ -1,7 +1,6 @@
 import React, { PureComponent } from 'react';
-import { Platform, Text, View, TextInput, SectionList, Alert, StatusBar, TouchableOpacity, Clipboard, Modal, TouchableHighlight, ScrollView } from 'react-native';
+import { Platform, Text, View, TextInput,  Alert, StatusBar, TouchableOpacity, Clipboard, Modal, AsyncStorage, ScrollView } from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
-import { heightPercentageToDP as hp, widthPercentageToDP as wp} from 'react-native-responsive-screen';
 import Icon2 from 'react-native-vector-icons/Ionicons';
 import { createAppContainer } from 'react-navigation';
 import { createMaterialBottomTabNavigator } from "react-navigation-material-bottom-tabs";
@@ -53,7 +52,7 @@ export class Home extends PureComponent {
     let newtext = Array(36).fill("")
 
     const regText = this.state.inputdata || 'example';
-
+    
     const normal = `abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ`
 
     const fontOrder = [24, 15, 26, 23, 14, 5, 4, 25, 0, 21, 22, 19, 18, 17, 16, 2, 20, 6, 3, 1, 27, 28, 7, 11, 10, 13, 8, 9, 12, 29, 30, 31, 32, 33, 34, 35];
@@ -88,7 +87,6 @@ export class Home extends PureComponent {
     newtext.splice(31, 0, ...otherCharsNewText);
     newtext[5] = newtext[5].split('').reverse().join('')
     
-    // this.setState({fontdata: newtext})
     return newtext
   };
 
@@ -129,7 +127,11 @@ export class Home extends PureComponent {
     Icon.getImageSource('more-vertical', 24, '#ffffff').then((source) => {
       this.setState({ icon: source })
     })
-    this.remap()
+
+    AsyncStorage.getItem("styletext").then((value) => {
+      this.setState({inputdata: value});
+    })
+    .catch(() =>  { this.remap() })
   }
 
   onActionSelected = (position) => {
@@ -219,6 +221,9 @@ export class Home extends PureComponent {
       newcontent.split('').reverse().join('')
     }
 
+    
+     
+
     try {
       this._MyComponent.setNativeProps({text: newcontent}); 
       this.toCopy = newcontent
@@ -228,6 +233,16 @@ export class Home extends PureComponent {
       return newcontent
     }
   }
+
+
+  saveContent = (content) => {
+    AsyncStorage.setItem('styletext', content)
+  }
+
+  deleteContent = () => {
+    AsyncStorage.removeItem('styletext');
+  }
+  
 
   //########################################################################## RENDER AREA ###########################################
 
@@ -250,11 +265,14 @@ export class Home extends PureComponent {
             this.setModalVisible(!modalVisible);
           }}>
           <View style={{ flex: 1, padding: 18, backgroundColor: "#ecf0f1" }}>
-            <TouchableOpacity onPress={() => { this.setModalVisible(!modalVisible) }}>
-              
-              <Icon name="arrow-left" style={{ marginBottom: 10 }} size={28} color="#7966FE" />
-
-            </TouchableOpacity>
+            <View style = {{flexDirection: 'row', justifyContent: 'space-between'}} >
+              <TouchableOpacity onPress={() => { this.setModalVisible(!modalVisible) }}>
+                <Icon name="arrow-left" style={{ marginBottom: 10 }} size={28} color="#7966FE" />
+              </TouchableOpacity>
+              <TouchableOpacity onPress = {() => {Alert.alert("Any text if typed here will get converted to fancy text.") }} >
+                <Icon name="info" style={{ marginBottom: 10 }} size={28} color="#7966FE" />
+              </TouchableOpacity>
+            </View>
             <ScrollView>
          
               <TextInput 
@@ -325,13 +343,13 @@ export class Home extends PureComponent {
           <TextInput
             placeholder='Type Something' 
             clearButtonMode="always"
-            onChangeText={(inputdata) => { this.setState( {inputdata: inputdata} ) }}
+            onChangeText={(inputdata) => { this.setState( {inputdata: inputdata}, () => this.saveContent(this.state.inputdata) ) }}
             style={styles.Typeitem}
             multiline={true}
             value = {this.state.inputdata}
           />
           <TouchableOpacity>
-            <Icon2 name="ios-backspace"  onPress={() => { this.setState({ inputdata: ""}) }} style={{ paddingRight: 10, }} size={30} color="#7966FE" />
+            <Icon2 name="ios-backspace"  onPress={() => { this.setState({ inputdata: ""}, this.deleteContent() ) }} style={{ paddingRight: 10, }} size={30} color="#7966FE" />
           </TouchableOpacity>  
         </View> 
         
@@ -339,7 +357,7 @@ export class Home extends PureComponent {
           style={{ marginTop: 10 }} 
 
           data = { this.remap() }
-          initialNumToRender={51}
+          initialNumToRender={10}
           keyExtractor={( item, index) => 'key' + index}
           renderItem={({ item, index }) =>
             (

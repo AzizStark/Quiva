@@ -1,7 +1,6 @@
 import React, { PureComponent } from 'react';
-import { Picker, Text, View, FlatList, TextInput, Alert, StatusBar, TouchableOpacity, Clipboard, Modal, TouchableHighlight, ScrollView } from 'react-native';
+import { Picker, Text, View, FlatList, TextInput, Alert, StatusBar, TouchableOpacity, Clipboard, Modal, TouchableHighlight, AsyncStorage, ScrollView } from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
-import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen';
 import Icon2 from 'react-native-vector-icons/Ionicons';
 import SegmentedControlTab from "react-native-segmented-control-tab";
 import styles from './Styles';
@@ -201,6 +200,18 @@ export class Decor extends PureComponent {
     Icon.getImageSource('more-vertical', 24, '#ffffff').then((source) => {
       this.setState({ icon: source })
     })
+    AsyncStorage.getItem("styletext2").then((value) => {
+      this.setState({tarea: value, inputdata2: value});
+    })
+  }
+
+  
+  saveContent = (content) => {
+    AsyncStorage.setItem('styletext2', content)
+  }
+
+  deleteContent = () => {
+    AsyncStorage.removeItem('styletext2');
   }
 
   render() {
@@ -221,9 +232,16 @@ export class Decor extends PureComponent {
             this.setModalVisible(!this.state.modalVisible);
           }}>
           <View style={{ flex: 1, padding: 18, backgroundColor: "#ecf0f1" }}>
-            <TouchableOpacity onPress={() => { this.setModalVisible(!this.state.modalVisible) }}>
-              <Icon name="arrow-left" style={{ marginBottom: 10 }} size={28} color="#7966FE" />
-            </TouchableOpacity>
+
+            <View style = {{flexDirection: 'row', justifyContent: 'space-between'}} >
+              <TouchableOpacity onPress={() => { this.setModalVisible(!this.state.modalVisible) }}>
+                <Icon name="arrow-left" style={{ marginBottom: 10 }} size={28} color="#7966FE" />
+              </TouchableOpacity>
+              <TouchableOpacity onPress = {() => {Alert.alert("You can only edit the text. No new symbols can be added here.") }} >
+                <Icon name="info" style={{ marginBottom: 10 }} size={28} color="#7966FE" />
+              </TouchableOpacity>
+            </View>
+
             <ScrollView>
               <TextInput  ellipsizeMode = "head" style={styles.modelinputtext}  onChangeText = {(modalContent) => this.setState({modalContent})} multiline={true}>{modalContent}</TextInput>
             </ScrollView>
@@ -276,13 +294,13 @@ export class Decor extends PureComponent {
           <TextInput
             placeholder='Type Something'
             clearButtonMode="always"
-            onChangeText={(inputdata2) => { this.setState({ inputdata2, tarea: inputdata2 })}}
+            onChangeText={(inputdata2) => { this.setState({ inputdata2, tarea: inputdata2 },  () => this.saveContent(this.state.inputdata2)) }}
             multiline={true}
             style={styles.Typeitem}
             value={this.state.tarea}
           /> 
           <TouchableOpacity>
-            <Icon2 name="ios-backspace" onPress={(inputdata2) => { this.setState({ inputdata2: "An example text", tarea: "" }); setTimeout(this.remap2, 1) }} style={{ paddingRight: 10, }} size={30} color="#7966FE" />
+            <Icon2 name="ios-backspace" onPress={(inputdata2) => { this.setState({ inputdata2: "An example text", tarea: "" },  this.deleteContent() ); setTimeout(this.remap2, 1) }} style={{ paddingRight: 10, }} size={30} color="#7966FE" />
           </TouchableOpacity>
         </View>
         
@@ -338,6 +356,7 @@ export class Decor extends PureComponent {
                 <Picker.Item label="Circles" value="Circles" />
                 <Picker.Item label="Squares" value="Squares" />
                 <Picker.Item label="Lines" value="Lines" />
+                <Picker.Item label="Misc" value="Misc" />
               </Picker>  
             </View>    
  
@@ -351,11 +370,11 @@ export class Decor extends PureComponent {
                 <TouchableOpacity style={(this.state.flist1 === index && customStyleIndex === 0 && this.state.selected1 === this.state.category1 ) ? styles.flatview2TIC : ((this.state.flist2 === index && customStyleIndex === 1 && this.state.selected2 === this.state.category2 ) ? styles.flatview2TIC : ((this.state.flist3 === index && customStyleIndex === 2 && this.state.selected3 === this.state.category3 ) ? styles.flatview2TIC : styles.flatview2))}
                   onPress={this._onPressButton.bind(this, { index }, { item })}  >
                   <Text allowFontScaling = {false} style={styles.textstyle2}> {item} </Text>
-                  <Text  allowFontScaling = {false} style={{ margin: 0,fontSize: 12, paddingTop: 1, marginLeft: 2, color: '#244E53' }}>{index}</Text>
+                  <Text  allowFontScaling = {false} style={{ margin: 0,fontSize: 10, paddingTop: 1, marginLeft: 2, color: '#244E53' }}>{index}</Text>
                 </TouchableOpacity>
               )}
               //Setting the number of column
-              numColumns={5}
+              numColumns={4}
               keyExtractor={(item, index) => index}
             />
 
