@@ -1,4 +1,4 @@
-<img alt='Banner' src="https://res.cloudinary.com/azizcloud/image/upload/v1588187658/xxhxvv6omopb7pauqglo.jpg" />
+<img alt='Banner' src="https://res.cloudinary.com/azizcloud/image/upload/v1588243913/jhfohllgd8mnddmfse6n.jpg" />
 
 <br/>
 <br/>
